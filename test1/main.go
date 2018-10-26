@@ -72,4 +72,30 @@ func main() {
 	for _, ii := range intArray {
 		fmt.Printf("addup result=%d\n", addFunc(ii, 2))
 	}
+
+	// Structures
+	type Person struct {
+		firstName   string
+		lastName    string
+		nationality string
+		age         int
+	}
+
+	personTest := Person{
+		firstName:   "Barry",
+		lastName:    "Golang",
+		nationality: "Martian",
+		age:         26}
+
+	personTest.age = 32
+
+	// Simpler form definition
+	personTest2 := Person{
+		"Harry", "Bolang", "Venetian", 43}
+
+	personTest.age = 32
+
+	fmt.Println(personTest)
+	fmt.Println(personTest2)
+
 }
