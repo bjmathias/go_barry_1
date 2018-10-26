@@ -7,20 +7,27 @@ var intglobal int32 = 8899
 
 var intglobal2 int32
 
+// Function for closure example
+func addUp() func(int, int) int {
+	return func(x int, y int) int {
+		return x + y
+	}
+}
+
 func main() {
 
 	intglobal2 = 7766
 
 	// Shorthand notation only valid within function.
-	charvar := "Barry was here"
+	charVar := "Barry was here"
 
-	intvar := 11223344
-	intvar2 := 11223344
-	var i32var int32 = 55667788
+	intVar := 11223344
+	intVar2 := 11223344
+	var i32Var int32 = 55667788
 
-	fmt.Printf("%s %s %d %d", charvar, " ", intvar, i32var)
+	fmt.Printf("%s %s %d %d", charVar, " ", intVar, i32Var)
 
-	if intvar == intvar2 {
+	if intVar == intVar2 {
 		fmt.Println("Ints are identical")
 	}
 	sliceTest := []string{"one", "two", "three"}
@@ -35,4 +42,34 @@ func main() {
 	delete(testMap, "two")
 
 	fmt.Println(testMap)
+
+	// Ranges
+	intArray := []int{9999, 8888, 7777, 6666, 5555, 4444, 3333, 2222, 1111}
+
+	for i, id := range intArray {
+		fmt.Printf("index=%d id=%d\n", i, id)
+	}
+
+	// Index not used
+	for _, id := range intArray {
+		fmt.Printf("id=%d\n", id)
+	}
+
+	// Map iteration (can just use k for keys alone)
+	for k, v := range testMap {
+		fmt.Printf("key=%s Value=%s\n", k, v)
+	}
+
+	// Pointers
+	aaa := 77
+	ppp := &aaa
+
+	fmt.Printf("aaa=%d type=%T, ppp = %x type=%T", aaa, aaa, ppp, ppp)
+
+	// Closure uses anonymous function above
+	addFunc := addUp()
+
+	for _, ii := range intArray {
+		fmt.Printf("addup result=%d\n", addFunc(ii, 2))
+	}
 }
