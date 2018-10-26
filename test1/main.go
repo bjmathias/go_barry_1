@@ -12,6 +12,6 @@ func main() {
 	fmt.Printf("%s %s %d", charvar, " ", intvar)
 
 	if intvar == intvar2 {
-
+		fmt.Println("Ints are identical")
 	}
 }
