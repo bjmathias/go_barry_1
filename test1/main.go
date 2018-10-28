@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+	"strconv"
+)
 
 // Global defiitions/declarations needs to be long form
 var intglobal int32 = 8899
@@ -12,6 +16,19 @@ func addUp() func(int, int) int {
 	return func(x int, y int) int {
 		return x + y
 	}
+}
+
+// Person Structure example
+type Person struct {
+	firstName   string
+	lastName    string
+	nationality string
+	age         int
+}
+
+func (per Person) sayHello() string {
+
+	return "Hello " + per.firstName
 }
 
 func main() {
@@ -74,12 +91,6 @@ func main() {
 	}
 
 	// Structures
-	type Person struct {
-		firstName   string
-		lastName    string
-		nationality string
-		age         int
-	}
 
 	personTest := Person{
 		firstName:   "Barry",
@@ -94,8 +105,36 @@ func main() {
 		"Harry", "Bolang", "Venetian", 43}
 
 	personTest.age = 32
+	personTest2.age++
 
 	fmt.Println(personTest)
 	fmt.Println(personTest2)
 
+	fmt.Printf("%s\n", personTest.sayHello())
+
+	// Basic web server test
+	httpListen()
+}
+
+// httpTestFunc handler for an http /test request
+func httpTestFunc(w http.ResponseWriter, r *http.Request) {
+
+	fmt.Fprintf(w, "Server response")
+	// Echo the url
+	fmt.Fprintln(w, "Request URL: "+r.URL.RequestURI()+"\n")
+	// Echo the url (GET) parameter map
+	fmt.Fprintln(w, r.URL.Query())
+	// Get and echo specific request parameter
+	fmt.Fprintln(w, "Origin="+r.URL.Query().Get("origin"))
+
+}
+
+// httpListen starts a basic http server on designated port
+func httpListen() {
+
+	httpPort := 8840
+	fmt.Printf("Starting http server on port %d.......\n", httpPort)
+	http.HandleFunc("/test", httpTestFunc)
+	http.ListenAndServe(":"+strconv.Itoa(httpPort), nil)
+	return
 }
